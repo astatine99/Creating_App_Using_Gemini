@@ -25,13 +25,16 @@ def upload_image():
 
 def toggle_theme():
     global current_mode
-    if current_mode == "dark":
-        ctk.set_appearance_mode("light")
-        current_mode = "light"
-    else:
+    if current_mode == "light":
         # Configure light mode colors here
         ctk.set_appearance_mode("dark")
+        theme_switch.configure(text="Dark Mode")
         current_mode = "dark"
+    elif current_mode == "dark":
+        ctk.set_appearance_mode("light")
+        theme_switch.configure(text="Light Mode")
+        current_mode = "light"
+
 
 def update_image_label():
     """Updates the image label with the uploaded image"""
@@ -58,11 +61,10 @@ button_style.pack(pady=10)
 image_label = ctk.CTkLabel(root, text="No image uploaded", font=("Helvetica", 16) )
 image_label.pack(pady=15)
 
-# Create a button to toggle the theme
-current_mode = "light"  # Initial mode
 
-theme_button = ctk.CTkButton(root, corner_radius=8, text="Toggle Theme", command=toggle_theme)
-theme_button.pack(pady=10)
+# Create a switch to toggle between light and dark mode
+theme_switch = ctk.CTkSwitch(root, text="Dark Mode", command=toggle_theme, onvalue="light", offvalue="dark")
+theme_switch.pack(pady=10)
 
 # Start the GUI
 root.mainloop()
